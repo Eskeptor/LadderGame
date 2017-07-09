@@ -11,8 +11,7 @@ private:
 	Data* data;
 public:
 	Ladder(const string&, const int&);
-	void SetLadder(const arr_string&);
+	void SetLadder(const arr_name&);
 	void ShowResult() const;
 	bool IsCompleted() const;
-
 };

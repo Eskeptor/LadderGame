@@ -5,11 +5,17 @@ Ladder::Ladder(const string& name, const int& lines) :name(name)
 	data = new Data(lines);
 }
 
-
-// TODO : 사다리 설정 만들기
-void Ladder::SetLadder(const arr_string& names)
+void Ladder::SetLadder(const arr_name& names)
 {
 	int lines = data->GetLines();
+	LadderCode* tmp_lines[LINE_LENGTH];
+	arr_name tmp_names = new string[lines];
+
+	for (int i = 0; i < LINE_LENGTH; i++)
+	{
+		tmp_lines[i] = new LadderCode[lines * 2 - 1];
+	}
+
 	srand((unsigned int)time(NULL));
 
 	for (int i = 0; i < LINE_LENGTH; i++)
@@ -18,39 +24,31 @@ void Ladder::SetLadder(const arr_string& names)
 		{
 			if (j % 2 == 0)
 			{
-
+				tmp_lines[i][j] = VERTICAL;
+			}
+			else
+			{
+				// TODO : 랜덤조건 다듬기
+				// 이전에 선이 그어졌으면 다음에는 안그어지기
+				int tmp = rand() % 2 + 1;
+				tmp_lines[i][j] = (LadderCode)tmp;
 			}
 		}
 	}
+
+	for (int i = 0; i < lines; i++)
+	{
+		tmp_names[i] = names[i];
+		
+	}
+	data->SetData(tmp_names, tmp_lines);
 }
 
 void Ladder::ShowResult() const
 {
-	arr_int line_data = data->GetLadderLines();
-	arr_string name_data = data->GetLadderLineNames();
-	int lines = data->GetLines();
-	
-	for (int i = 0; i <= LINE_LENGTH; i++)
-	{
-		for (int j = 0; j < lines; j++)
-		{
-			for (int k = 0; k < 2; k++)
-			{
-				if (j == lines - 1 && k == 1)
-					continue;
-				if (i == 0)
-				{
-					if (k == 0)
-						printf("%d", j);
-					else
-						printf(" ");
-				}
-				else
-					printf("%d", line_data[i - 1][j + k]);
-			}
-		}
-		printf("\n");
-	}
+	cout << name << "사다리" << endl << endl;
+	data->PrintLadderLines();
+	data->PrintLadderLinesNames();
 }
 
 bool Ladder::IsCompleted() const
