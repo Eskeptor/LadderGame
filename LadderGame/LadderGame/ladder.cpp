@@ -30,8 +30,21 @@ void Ladder::SetLadder(const arr_name& names)
 			{
 				// TODO : 랜덤조건 다듬기
 				// 이전에 선이 그어졌으면 다음에는 안그어지기
-				int tmp = rand() % 2 + 1;
-				tmp_lines[i][j] = (LadderCode)tmp;
+				if (j > 2)
+				{
+					if (tmp_lines[i][j - 2] == HORIZONTAL)
+						tmp_lines[i][j] = BLANK;
+					else
+					{
+						int tmp = rand() % 2 + 1;
+						tmp_lines[i][j] = (LadderCode)tmp;
+					}
+				}
+				else
+				{
+					int tmp = rand() % 2 + 1;
+					tmp_lines[i][j] = (LadderCode)tmp;
+				}
 			}
 		}
 	}

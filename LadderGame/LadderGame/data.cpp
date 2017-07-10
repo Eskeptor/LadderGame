@@ -48,9 +48,9 @@ void Data::SetData(const arr_name& names, const arr_ladderlines& ladder_line)
 
 void Data::PrintLadderLinesNames() const
 {
-	for (int i = 0; i < lines; i++)
+	for (int i = 1; i <= lines; i++)
 	{
-		cout << i << " : " << arr_ladder_line_names[i] << "    ";
+		cout << i << " : " << arr_ladder_line_names[i - 1] << "		";
 		if (i % 2 == 0)
 			cout << endl;
 	}
@@ -74,13 +74,47 @@ void Data::PrintLadderLines() const
 			{
 				if (k == 1 && j == lines - 1)
 					continue;
-				// TODO : 라인을 그을때 이전과 연결되면 다음도 연결되게 그려지기
-				if (arr_ladder_lines[i][k + 2 * j] == VERTICAL)
+				if (j == 0 && k == 0)
+				{
+					if (arr_ladder_lines[i][1] == HORIZONTAL)
+						cout << "├";
+					else
+						cout << "│";
+				}
+				else if (j == lines - 1 && k == 0)
+				{
+					if (arr_ladder_lines[i][lines * 2 - 3] == HORIZONTAL)
+						cout << "┤";
+					else
+						cout << "│";
+				}
+				else
+				{
+					if (arr_ladder_lines[i][k + 2 * j - 1] == HORIZONTAL)
+					{
+						if (arr_ladder_lines[i][k + 2 * j + 1] == HORIZONTAL)
+							cout << "┼";
+						else
+							cout << "┤";
+					}
+					else if (arr_ladder_lines[i][k + 2 * j] == HORIZONTAL)
+						cout << "─";
+					else if (arr_ladder_lines[i][k + 2 * j] == BLANK)
+						cout << "  ";
+					else
+					{
+						if (arr_ladder_lines[i][k + 2 * j + 1] == HORIZONTAL)
+							cout << "├";
+						else
+							cout << "│";
+					}
+				}
+				/*if (arr_ladder_lines[i][k + 2 * j] == VERTICAL)
 					cout << "│";
 				else if (arr_ladder_lines[i][k + 2 * j] == HORIZONTAL)
 					cout << "─";
 				else
-					cout << "  ";
+					cout << "  ";*/
 				//cout << arr_ladder_lines[i][k + 2 * j];
 			}
 		}

@@ -1,6 +1,9 @@
 #include "headers.h"
 #include "ladder.h"
 
+
+// TODO : 사다리 밑에 쓰는거 만들기
+// TODO : 사다리 기록 만들기
 void MainMenu()
 {
 	system("cls");
